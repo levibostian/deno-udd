@@ -198,3 +198,13 @@ Deno.test("registryNpmOrg", () => {
   const vAt = v.at("0.2.0");
   assertEquals(vAt.url, "npm:@foo/foo@0.2.0/foo");
 });
+
+Deno.test("registryNpmOrgFragment", () => {
+  const url = "npm:@foo/foo@0.1.0/foo#~";
+  const v = lookup(url, REGISTRIES);
+  assert(v !== undefined);
+
+  assertEquals(v.version(), "0.1.0");
+  const vAt = v.at("0.2.0");
+  assertEquals(vAt.url, "npm:@foo/foo@0.2.0/foo");
+});
