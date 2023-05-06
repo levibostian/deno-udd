@@ -191,7 +191,8 @@ export class Npm implements RegistryUrl {
   }
 
   version(): string {
-    const [, _, version] = this.url.match(this.parseRegex)!;
+    const [, _, versionWithFragmentSuffix] = this.url.match(this.parseRegex)!;
+    const [, version] = versionWithFragmentSuffix.match(/([^#]+)/)! // remove fragment #~ suffix if it exists. 
     if (version === null) {
       throw Error(`Unable to find version in ${this.url}`);
     }
